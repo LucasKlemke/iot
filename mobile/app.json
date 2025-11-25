@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "IoT Cancer Detector",
+    "slug": "iot-cancer-detector",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "iotcancerdetector",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#2563eb"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#2563eb"
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE"
+      ]
+    },
+    "ios": {
+      "supportsTablet": true
+    }
+  }
+}
