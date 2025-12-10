@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@ai-sdk/google": "latest",
+    "@ai-sdk/openai": "^2.0.80",
     "@prisma/client": "^6.19.0",
     "ai": "latest",
     "cors": "^2.8.5",

@@ -2,6 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import { PrismaClient } from '@prisma/client';
 import { google } from '@ai-sdk/google';
+import { openai } from '@ai-sdk/openai';
 import { generateObject } from 'ai';
 import { z } from 'zod';
 
@@ -13,7 +14,8 @@ const upload = multer({
   limits: { fileSize: 10 * 1024 * 1024 }
 });
 
-const model = google('gemini-2.5-flash');
+// const model = google('gemini-2.5-flash');
+const model = openai('gpt-4o-mini');
 
 const analysisSchema = z.object({
   severity: z.enum(['low', 'medium', 'high', 'extreme']),
@@ -36,13 +38,12 @@ Classifique a severidade como:
 - "high": Várias características suspeitas presentes
 - "extreme": Características altamente suspeitas de malignidade
 
-Forneça:
-1. severity: Classificação do risco
-2. accuracy: Sua confiança na análise (0.0 a 1.0)
-3. commentaries: Comentários detalhados sobre características observadas, motivo da classificação e sempre incluir: "⚠️ IMPORTANTE: Esta é uma análise preliminar realizada por IA e NÃO substitui avaliação médica profissional. Consulte um dermatologista para diagnóstico definitivo."
+Responda APENAS com um objeto JSON contendo EXATAMENTE estas três propriedades:
+- severity: string ("low", "medium", "high" ou "extreme")
+- accuracy: number (0.0 a 1.0)
+- commentaries: string com comentários detalhados
 
 Seja preciso mas cauteloso em suas análises.`;
-
 router.get('/', async (req, res) => {
   try {
     const analyses = await prisma.analysis.findMany({
